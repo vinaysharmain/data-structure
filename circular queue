@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 5
+int queue[SIZE],front =-1,rear=-1;
+int isempty(){
+   return (front==-1)?1:0;
+
+}
+int isfull(){
+ return ((rear+1)%SIZE==front)?1:0;
+}
+void enqueue(int data){
+rear=(rear+1)%SIZE;
+queue[rear]=data;
+if(front==-1){
+    front=0;
+    printf("Element inserted successfully \n");
+}
+
+}
+int dequeue(){
+ int data=queue[front];
+ if(front==rear){
+    front=rear=-1;
+ }
+ else{
+    front=(front+1)%SIZE;
+    return data;
+ }
+    
+
+}
+
+int peek(){
+return queue[front];
+}
+void display(){
+    int i=front;
+while(i!=rear){
+    printf("%d",queue[i]);
+    i=(i+1)%SIZE;
+    }
+    printf("%d ",queue[rear]);
+}
+int main(){
+while(1){
+    printf("-----circular queue-----\n");
+    printf("1. Enqueue\n");
+    printf("2. Dequeue\n");
+    printf("3. Peek\n");
+    printf("4. Display\n");
+    printf("5. Exit\n");
+    int choice,data;
+    printf("Enter the choice = ");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+        if(isfull()){
+            printf("Queue overflowed");
+        }
+        else{
+            printf("Enter the element = ");
+            scanf("%d",&data);
+            enqueue(data);
+        }
+        break;
+
+        case 2:
+        if(isempty()){
+            printf("Queue underflow");
+        }
+        else{
+            printf("%d is deleted!!",dequeue());
+        }
+        break;
+
+        case 3:
+        if(isempty()){
+            printf("Queue is empty");
+        }
+        else{
+            printf("Element available in front of queue is %d\n",peek());
+        }
+        break;
+
+        case 4:
+        if(isempty()){
+            printf("Queue is empty\n");
+        }
+        else 
+        display();
+        break;
+
+        case 5:
+        exit(0);
+
+        default:
+        printf("Invalid choice!!!\n");
+
+    }
+    printf("\n");
+}
+}
